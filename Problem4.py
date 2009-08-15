@@ -1,4 +1,3 @@
-from math import *
 def ispalindrome(n):
 	if str(n)==str(n)[::-1] : return 1
 	else: return 0
