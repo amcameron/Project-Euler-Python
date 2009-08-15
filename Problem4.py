@@ -1,9 +1,7 @@
 from math import *
 def ispalindrome(n):
-	nstr = str(n)
-	for i in range(int(len(nstr)/2)):
-		if (nstr[i] != nstr[len(nstr) - i - 1]): return 0
-	return 1
+	if str(n)==str(n)[::-1] : return 1
+	else: return 0
 
 curbest = 0
 for i in range(1000,0,-1):
