@@ -14,4 +14,8 @@ def isprime(n):
 		else: i = i + 1
 	return 1
 
+curprime = 1
+for i in xrange(1,10001):
+	curprime = nextprime(curprime)
 
+print curprime
