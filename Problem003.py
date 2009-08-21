@@ -1,11 +1,5 @@
-from math import *
-def isprime(n):
-	i = 2
-	while (i <= sqrt(n)):
-		if (n % i == 0): return 0
-		else: i = i + 1
-	return 1
-
+import utils
+isprime = utils.IsPrime()
 n = 600851475143
 i = 2
 nisprime = isprime(n)

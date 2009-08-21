@@ -1,9 +1,5 @@
+import utils
 upperbound = 2000000
-mylist = range(0,upperbound)
-mylist[1] = 0
-for i in mylist:
-	if i != 0:
-		for j in xrange(2*i, upperbound, i):
-			mylist[j] = 0
-
-print sum(mylist)
+isPrime = utils.IsPrime()
+isPrime(upperbound**2) #guarantees isPrime.primes has all primes <= upperbound
+print sum([i for i in isPrime.primes if i < upperbound])
