@@ -23,16 +23,14 @@ for row in xrange(0,20):
 	grid[row] = input.split()[row*20:row*20+20]
 grid = [[int(j) for j in i] for i in grid]
 curbest = 0
-horiz = vert = diag = 0
-for i in xrange(0,17):
-	for j in xrange(0,17):
-		horiz = grid[i][j]*grid[i][j+1]*grid[i][j+2]*grid[i][j+3]
-		vert = grid[i][j]*grid[i+1][j]*grid[i+2][j]*grid[i+3][j]
-		diag = grid[i][j]*grid[i+1][j+1]*grid[i+2][j+2]*grid[i+3][j+3]
-		curbest = max(curbest, horiz, vert, diag)
-for i in xrange(17,20):
-	for j in xrange(0,17):
-		horiz = grid[i][j]*grid[i][j+1]*grid[i][j+2]*grid[i][j+3]
-		vert = grid[j][i]*grid[j+1][i]*grid[j+2][i]*grid[j+3][i]
-		curbest = max(curbest, horiz, vert)
+horiz = vert = diag1 = diag2 = 0
+for i in xrange(0,20):
+	for j in xrange(0,20):
+		if j < 17: horiz = grid[i][j]*grid[i][j+1]*grid[i][j+2]*grid[i][j+3]
+		if i < 17: vert = grid[i][j]*grid[i+1][j]*grid[i+2][j]*grid[i+3][j]
+		if i < 17 and j < 17:
+			diag1 = grid[i][j]*grid[i+1][j+1]*grid[i+2][j+2]*grid[i+3][j+3]
+		if i > 4 and j < 17:
+			diag2 = grid[i][j]*grid[i-1][j+1]*grid[i-2][j+2]*grid[i-3][j+3]
+		curbest = max(curbest, horiz, vert, diag1, diag2)
 print curbest
