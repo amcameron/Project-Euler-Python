@@ -35,6 +35,9 @@ def spellnum(n):
 		raise ValueError("Number out of range.  "
 			"Valid range is 1-1000 (inclusive).")
 
+	if int(n) != n:
+		raise TypeError("Argument is not integer-like.")
+
 	keys = numberNames.keys()
 	keys.sort(reverse=True)
 	numname = ""
