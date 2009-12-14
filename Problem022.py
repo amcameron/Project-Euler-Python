@@ -10,8 +10,7 @@ if __name__ == '__main__':
 	names = f.read().replace('"', '').split(',')
 	names.sort()
 
-	total = 0
-	for i in xrange(1,len(names)+1):
-		total += alphabeticalValue(names[i-1].lower()) * i
+	total = sum([alphabeticalValue(names[i-1].lower()) * i
+		for i in xrange(1, len(names) + 1)])
 
 	print total
