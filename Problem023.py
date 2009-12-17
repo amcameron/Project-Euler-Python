@@ -1,3 +1,5 @@
+from utils import IsPrime
+
 def primeFactors(n):
 	"""Find the prime factors of an integer n.
 
@@ -5,7 +7,24 @@ def primeFactors(n):
 	2, 2, and 3.
 	"""
 
-	raise NotImplementedError("primeFactors is not yet implemented.")
+	# initialize list of prime factors and IsPrime object
+	facts = []
+	isPrime = IsPrime()
+
+	# ensure list of known primes is long enough to state whether
+	# n is prime or compound
+	isPrime.extend(n)
+
+	# divide by factors until none remain
+	for prime in isPrime.primes:
+		while n % prime == 0:
+			facts.append(prime)
+			n /= prime
+
+		if n == 1:
+			break
+
+	return facts
 
 
 def properFactors(n):
