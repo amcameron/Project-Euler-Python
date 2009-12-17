@@ -29,7 +29,7 @@ class IsPrime():
 
 			# and, lastly, append the remaining (prime) numbers to self.primes
 			l = len(self.primes)
-			self.primes[l:l] = [i for i in newprimes[self.primes[-1]+1:] if i != 0]
+			self.primes.extend([i for i in newprimes[self.primes[-1]+1:] if i != 0])
 
 		# this if statement is pretty much implied by the previous while loop.
 		# anyway; we now have enough primes to know for sure if n is compound or not.
