@@ -1,17 +1,27 @@
 class IsPrime():
+	"""Determine whether a given number is prime or compound.
+
+	Uses the sieve method of finding primes.
+	"""
+
 	primes = []
+
 	def __init__(self):
 		self.primes = [2,3]
+
 	def __call__(self, n):
+		"""Return true if n is prime; false otherwise."""
+
+		# if n is already in the list of known primes, it is prime.
 		if self.primes.count(n) != 0: return True
 
 		# self.primes may yet be too short to state that n is compound;
 		# in this case, extend self.primes.  self.primes has to extend to
 		# at least the square root of n.
-		while self.primes[-1]**2 < n:
+		while self.primes[-1] ** 2 < n:
 			# index all integers up until and including the largest we
 			# can currently check definitively.
-			newprimes = range(0,self.primes[-1]**2)
+			newprimes = range(0, self.primes[-1] ** 2)
 
 			# turn off all numbers that are multiples of known primes.
 			for prime in self.primes:
@@ -23,8 +33,8 @@ class IsPrime():
 
 		# this if statement is pretty much implied by the previous while loop.
 		# anyway; we now have enough primes to know for sure if n is compound or not.
-		if self.primes[-1]**2 >= n:
+		if self.primes[-1] ** 2 >= n:
 			for prime in self.primes:
 				if n%prime == 0: return False
-				if prime**2 > n: break
+				if prime ** 2 > n: break
 			return True
