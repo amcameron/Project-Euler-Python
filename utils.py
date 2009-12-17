@@ -38,3 +38,12 @@ class IsPrime():
 				if n%prime == 0: return False
 				if prime ** 2 > n: break
 			return True
+
+	def extend(self, n):
+		"""Extend the list of known primes to at least n."""
+
+		# If n is prime, calling self with n**2 will ensure n is in self.primes.
+		# Depending on what the last currently-known prime is, we may get bonus
+		# primes AT NO EXTRA COST!!1!one
+		self(n**2)
+
