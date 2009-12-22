@@ -2,10 +2,14 @@ from utils import IsPrime
 from itertools import combinations
 
 def primeFactors(n):
-	"""Find the prime factors of an integer n.
+	"""Find the list of prime factors of an integer n.
 
 	For example, the prime factors of 12 are
 	2, 2, and 3.
+
+	Factors are returned in a monotonic increasing list.
+	For example, primeFactors(12) will never return
+	[2, 3, 2] or [3, 2, 2].
 	"""
 
 	# initialize list of prime factors and IsPrime object
@@ -29,7 +33,7 @@ def primeFactors(n):
 
 
 def properFactors(n):
-	"""Find the proper factors of an integer n.
+	"""Find the set of proper factors of an integer n.
 
 	For example, the proper factors of 12 are
 	1, 2, 3, 4, and 6.
@@ -47,7 +51,7 @@ def properFactors(n):
 	# The products of these are [1], [2, 3], and [4, 6], respectively.
 	# Therefore, the proper factors of 12 are [1, 2, 3, 4, 6].
 	primeFacts = primeFactors(n)
-	properFacts = []
+	properFacts = set()
 
 	# Iterate over the number of combinations to take (that is, the
 	# r in "nCr"), but don't take the combination of ALL prime
@@ -58,8 +62,7 @@ def properFactors(n):
 		# of each of these combinations.  We might end up with
 		# duplicates, so use set() to remove them.  Then add them
 		# to the list of proper factors!
-		properFacts.extend(set(
-			map(_product, combinations(primeFacts, i))))
+		properFacts.update(map(_product, combinations(primeFacts, i)))
 
 	return properFacts
 
