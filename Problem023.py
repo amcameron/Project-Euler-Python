@@ -1,4 +1,5 @@
 from utils import IsPrime
+from itertools import combinations
 
 def primeFactors(n):
 	"""Find the prime factors of an integer n.
@@ -45,7 +46,38 @@ def properFactors(n):
 	# [2, 2, 3] nCr 3: not included, because prod([2, 2, 3]) = 12.
 	# The products of these are [1], [2, 3], and [4, 6], respectively.
 	# Therefore, the proper factors of 12 are [1, 2, 3, 4, 6].
-	raise NotImplementedError("properFactors is not yet implemented.")
+	primeFacts = primeFactors(n)
+	properFacts = []
+
+	# Iterate over the number of combinations to take (that is, the
+	# r in "nCr"), but don't take the combination of ALL prime
+	# factors. (Do take the combination of NONE of them: 1 is
+	# always a proper factor.)
+	for i in xrange(len(primeFacts)):
+		# Find all combinations of i elements, and take the products
+		# of each of these combinations.  We might end up with
+		# duplicates, so use set() to remove them.  Then add them
+		# to the list of proper factors!
+		properFacts.extend(set(
+			map(_product, combinations(primeFacts, i))))
+
+	return properFacts
+
+
+def _product(seq):
+	"""Find the product of all elements in a sequence.
+
+	The product of an empty sequence is the multiplicative
+	identity: 1.
+	"""
+
+	# Make sure the sequence can behave like a list
+	# (so that we can pop it)
+	seq = list(seq)
+	if len(seq) == 0:
+		return 1
+	else:
+		return seq.pop() * _product(seq)
 
 
 def isAbundant(n):
