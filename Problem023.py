@@ -91,7 +91,7 @@ def isAbundant(n):
 	and 16 > 12.
 	"""
 
-	return properFactors(n) > n
+	return sum(properFactors(n)) > n
 
 
 def isPerfect(n):
@@ -101,7 +101,7 @@ def isPerfect(n):
 	For example, 6 is perfect because 1 + 2 + 3 = 6.
 	"""
 
-	return properFactors(n) == n
+	return sum(properFactors(n)) == n
 
 
 def isDeficient(n):
@@ -112,7 +112,7 @@ def isDeficient(n):
 	and 8 < 15.
 	"""
 
-	return properFactors(n) < n
+	return sum(properFactors(n)) < n
 
 
 def abundantSum(n):
