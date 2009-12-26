@@ -1,6 +1,8 @@
 from utils import IsPrime
 from itertools import combinations
 
+_isPrime = IsPrime()
+
 def primeFactors(n):
 	"""Find the list of prime factors of an integer n.
 
@@ -12,16 +14,20 @@ def primeFactors(n):
 	[2, 3, 2] or [3, 2, 2].
 	"""
 
+	if int(n) != n:
+		raise TypeError("cannot find the factors of a non-integer.")
+	if n < 1:
+		raise ValueError("cannot find the factors of a non-positive integer.")
+
 	# initialize list of prime factors and IsPrime object
 	facts = []
-	isPrime = IsPrime()
 
 	# ensure list of known primes is long enough to state whether
 	# n is prime or compound
-	isPrime.extend(n)
+	_isPrime.extend(n)
 
 	# divide by factors until none remain
-	for prime in isPrime.primes:
+	for prime in _isPrime.primes:
 		while n % prime == 0:
 			facts.append(prime)
 			n /= prime
