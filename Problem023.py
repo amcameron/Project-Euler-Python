@@ -121,14 +121,31 @@ def isDeficient(n):
 	return sum(properFactors(n)) < n
 
 
-def abundantSum(n):
+class abundantSum:
 	"""Return True if a number n can be expressed as the sum of two
 	abundant numbers, False otherwise.
 
 	"""
 
-	raise NotImplementedError("abundantSum is not yet implemented.")
+	def __init__(self):
+		self.abundants = [12]
+		self.sums = set([24])
+
+	def __call__(self, n):
+		if self.abundants[-1] < n:
+			self.extend(n)
+
+		return n in self.sums
+
+	def extend(self, n):
+		self.abundants.extend(num
+			for num in xrange(self.abundants[-1] + 1, n + 1)
+			if isAbundant(num))
+		self.sums.update(map(sum, combinations(self.abundants, 2)))
+		self.sums.update(2*num for num in self.abundants)
 
 
 if __name__ == "__main__":
-	print sum([i for i in xrange(28124) if not abundantSum(i)])
+	a = abundantSum()
+	a.extend(28124)
+	print sum(filter(lambda num: not a(num), xrange(1, 28124)))
