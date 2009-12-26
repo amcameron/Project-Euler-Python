@@ -141,7 +141,7 @@ class abundantSum:
 		self.abundants.extend(num
 			for num in xrange(self.abundants[-1] + 1, n + 1)
 			if isAbundant(num))
-		self.sums.update(map(sum, combinations(self.abundants, 2)))
+		self.sums = set(map(sum, combinations(self.abundants, 2)))
 		self.sums.update(2*num for num in self.abundants)
 
 
