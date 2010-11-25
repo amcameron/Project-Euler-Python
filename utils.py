@@ -12,7 +12,11 @@ class IsPrime():
 		self.primes = [2,3]
 
 	def __call__(self, n):
-		"""Return true if n is prime; false otherwise."""
+		"""Return True if n is prime; False otherwise."""
+
+		# check if the input is a natural number
+		if n < 1: return False
+		if int(n) != n: return False
 
 		# check if the input is a known prime
 		if self.primes.count(n) != 0: return True
