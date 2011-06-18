@@ -39,9 +39,13 @@ def position_manager_factory(die_sides):
 			card = chance.pop(0)
 			if (card == 'R*'):
 				# Move to the next railway.
+				if (new_pos > railways[-1]):
+					new_pos = 0
 				new_pos = min(rr for rr in railways if rr > new_pos)
 			elif (card == 'U*'):
 				# Move to the next utility.
+				if (new_pos > utilities[-1]):
+					new_pos = 0
 				new_pos = min(ut for ut in utilities if ut > new_pos)
 			elif (card == '-3'):
 				new_pos = new_pos - 3
@@ -63,13 +67,12 @@ def position_manager_factory(die_sides):
 		
 	return fun
 
-def play(num_turns):
+def play(num_turns, die_sides):
 	"""Initialize a new game and simulate it for the specified number of turns,
 	returning the most frequently landed-on squares as (name, freq) tuples."""
 
 	# Perform setup.
 	pos = 0
-	die_sides = 6
 	occurrences = [0] * len(board)
 	advance = position_manager_factory(die_sides)
 
@@ -77,8 +80,11 @@ def play(num_turns):
 		pos = advance(pos)
 		occurrences[pos] += 1
 
-	return [occ / float(num_turns) for occ in occurrences]
+	freqs = [occ / float(num_turns) for occ in occurrences]
+	retval = zip(freqs, board)
+	retval.sort(key=lambda x: x[0], reverse=True)
+	return retval
 
 if __name__ == '__main__':
-	freqs = play(100000)
-	pprint(zip(board, freqs))
+	board_sorted_by_freq = play(1000000, 4)
+	pprint(board_sorted_by_freq[:5])
