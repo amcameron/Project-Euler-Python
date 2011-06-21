@@ -15,7 +15,7 @@ class IsPrime():
 		"""Return True if n is prime; False otherwise."""
 
 		# check if the input is a natural number
-		if n < 1: return False
+		if n <= 1: return False
 		if int(n) != n: return False
 
 		# check if the input is a known prime
@@ -56,3 +56,5 @@ class IsPrime():
 			l = len(self.primes)
 			self.primes.extend([i for i in newprimes[self.primes[-1]+1:] if i != 0])
 
+# Convenience instance of IsPrime() suitable for importing like a function.
+is_prime = IsPrime()
