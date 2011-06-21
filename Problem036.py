@@ -1,17 +1,7 @@
 """Find the sum of all numbers, less than one million, which are palindromic in
 base 10 and base 2."""
 
-def isPalindrome(string):
-	"""Determine whether a given string is palindromic or not."""
-	return string == string[::-1]
-
-def toBase10String(integer):
-	"""Represent an integer in base ten, as a string."""
-	return str(integer)
-
-def toBase2String(integer):
-	"""Represent an integer in base two, as a string."""
-	return "{0:b}".format(integer)
+from utils import isPalindrome, toBase10, toBase2
 
 def predicate(integer):
 	"""Return true if the integer is palindromic in both base 10 and base 2."""

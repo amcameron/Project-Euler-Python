@@ -1,5 +1,8 @@
 from math import sqrt
+from array import array
 
+# TODO: refactor class - change name to PrimeUtils; add more convenience funcs.
+# TODO: convenience func - next_prime().
 class IsPrime():
 	"""Determine whether a given number is prime or compound.
 
@@ -40,6 +43,7 @@ class IsPrime():
 
 	def extend(self, n):
 		"""Extend the list of known primes to at least n."""
+		# TODO: This is broken for big numbers (cf. Problem010.py) - fix it.
 
 		# Depending on what the last currently-known prime is, we may get bonus
 		# primes AT NO EXTRA COST!!1!one
@@ -58,3 +62,60 @@ class IsPrime():
 
 # Convenience instance of IsPrime() suitable for importing like a function.
 is_prime = IsPrime()
+
+def isPalindrome(obj):
+	"""Determine whether a given object is palindromic or not."""
+	return str(obj) == str(obj)[::-1]
+
+def toBase10(num):
+	"""Represent an integer in base ten, as a string."""
+	return str(int(num))
+
+def toBase2(num):
+	"""Represent an integer in base two, as a string."""
+	return "{0:b}".format(int(num))
+
+def fib(n):
+	"""Find the nth Fibonacci number."""
+	if (n < 1): return 0
+	if (n == 1 or n == 2): return n
+	thisfib = 0
+	i = 3
+	prevprev = 1
+	prev = 2
+	while (i <= n):
+		thisfib = prevprev + prev
+		prevprev = prev
+		prev = thisfib
+		i = i + 1
+	return thisfib
+
+def factorize(n):
+	i=1
+	factors = array('L')
+	while i*i <= n:
+		if n%i == 0:
+			factors.append(i)
+		i += 1
+	if factors[-1]**2 == n:
+		for i in factors[-2::-1]:
+			factors.append(n/i)
+	else:
+		for i in factors[-1::-1]:
+			factors.append(n/i)
+	return factors
+
+def memoize(fn):
+	cache = dict()
+
+	def newfn(*args):
+		try:
+			return cache[args]
+		except KeyError:
+			cache[args] = fn(*args)
+			return cache[args]
+		except TypeError:
+			# args is unhashable.
+			return fn(*args)
+
+	return newfn

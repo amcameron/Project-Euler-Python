@@ -1,6 +1,4 @@
-from utils import IsPrime
-
-is_prime = IsPrime()
+from utils import is_prime
 
 quad = lambda n, a, b: n**2 + a*n + b
 

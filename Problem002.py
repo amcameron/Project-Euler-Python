@@ -1,17 +1,4 @@
-from math import *
-def fib(n):
-	if (n < 1): return 0
-	if (n == 1 or n == 2): return n
-	thisfib = 0
-	i = 3
-	prevprev = 1
-	prev = 2
-	while (i <= n):
-		thisfib = prevprev + prev
-		prevprev = prev
-		prev = thisfib
-		i = i + 1
-	return thisfib
+from utils import fib
 
 total = 0
 n = 1

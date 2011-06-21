@@ -1,28 +1,4 @@
-def propMax(cur, next):
-	"""Calculate the maximum route sums for the next
-	row in a triangle, given the current one.
-
-	"""
-
-	if len(next) != len(cur) + 1:
-		raise IndexError("Next row must have one more"
-			"element than current.")
-	
-	# Edge case: the only way to reach the first element
-	# is from the first element of the previous row.
-	next[0] += cur[0]
-
-	# Use the maximum of each of the possible parents of each item.
-	# Don't use the first or last elements of next, because they
-	# are edge cases.
-	for i in range(1, len(next) - 1):
-		next[i] += max(cur[i - 1], cur[i])
-
-	# Edge case: the only way to reach the last element
-	# is from the last element of the previous row.
-	next[-1] += cur[-1]
-
-	return next
+from Problem018 import propMax
 
 if __name__ == "__main__":
 	triangle = []
