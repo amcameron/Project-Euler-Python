@@ -25,7 +25,7 @@ def isBouncy(num):
 	return not isIncreasing(num) and not isDecreasing(num)
 
 if __name__ == '__main__':
-	numBouncy = 1
+	numBouncy = 0
 	i = 1
 	while (numBouncy*100 != i*99):
 		i += 1
