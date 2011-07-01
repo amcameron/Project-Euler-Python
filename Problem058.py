@@ -29,9 +29,10 @@ if __name__ == '__main__':
 	num_elems = len(diags)
 	num_primes = sum(1 for i in diags if is_prime(i))
 
+	# This search is very inefficient. Try a grid search (large increments,
+	# perhaps exponentially increasing increments) until a crossing point is
+	# found, then perform binary search within that interval.
 	while float(num_primes)/num_elems > 0.10:
-		if i % 100000 == 0:
-			print "i: ", i
 		i += 2
 		new_diags = [i*i - i + 1, i*i - 2*i + 2, i*i - 3*i + 3]
 		num_elems += 4
