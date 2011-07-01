@@ -54,11 +54,11 @@ class IsPrime():
 
 			# turn off all numbers that are multiples of known primes.
 			for prime in self.primes:
-				newprimes[prime::prime] = [0 for i in newprimes[prime::prime]]
+				newprimes[prime::prime] = [False for i in newprimes[prime::prime]]
 
 			# and, lastly, append the remaining (prime) numbers to self.primes
 			l = len(self.primes)
-			self.primes.extend([i for i in newprimes[self.primes[-1]+1:] if i != 0])
+			self.primes.extend([i for i in newprimes[self.primes[-1]+1:] if i])
 
 # Convenience instance of IsPrime() suitable for importing like a function.
 is_prime = IsPrime()
