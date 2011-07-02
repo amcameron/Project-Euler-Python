@@ -2,11 +2,11 @@ from bisect import bisect_left
 from math import sqrt
 from array import array
 
-def find_gt(a, x):
+def find_ge(a, x):
 	"""Find whether an item greater than or equal to x occurs in a."""
 	i = bisect_left(a, x)
 	if i != len(a):
-		return True
+		return a[i]
 	return False
 
 # TODO: refactor class - change name to PrimeUtils; add more convenience funcs.
@@ -25,21 +25,38 @@ class IsPrime():
 	def __call__(self, n):
 		"""Return True if n is prime; False otherwise."""
 
-		# check if the input is a natural number
+		# Check if the input is a natural number.
 		if n <= 1:
 			return False
 		if int(n) != n:
 			return False
 
-		if not find_gt(self.primes, sqrt(n)):
-			self.extend(sqrt(n))
+		# Check if the input is a known prime.
+		x = find_ge(self.primes, n)
+		if x == n:
+			return True
 
-		for prime in self.primes:
+		# Check if the input has a known prime as a factor.
+		retval = self._check(n)
+		if retval is not None:
+			return retval
+
+		# Extend the known primes until either a prime factor is found, or the
+		# largest known prime is greater than sqrt(n).
+		while not find_ge(self.primes, sqrt(n)):
+			old_last = len(self.primes) - 1
+			self.extend(self.primes[-1]**2)
+			retval = self._check(n, self.primes[old_last:])
+			if retval is not None:
+				return retval
+
+	def _check(self, n, primes=self.primes):
+		for prime in primes:
 			if prime == n:
 				return True
 			elif n % prime == 0:
 				return False
-			if prime > sqrt(n):
+			elif prime > sqrt(n):
 				return True
 
 	def extend(self, n):
