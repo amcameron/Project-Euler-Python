@@ -1,19 +1,26 @@
+from bisect import bisect_left
 from math import sqrt
 from array import array
+
+def find_gt(a, x):
+	"""Find whether an item greater than or equal to x occurs in a."""
+	i = bisect_left(a, x)
+	if i != len(a):
+		return True
+	return False
 
 # TODO: refactor class - change name to PrimeUtils; add more convenience funcs.
 # TODO: convenience func - next_prime().
 class IsPrime():
 	"""Determine whether a given number is prime or compound.
 
-	Uses the sieve method of finding primes.
+	Uses a fairly naive method for finding primes.
 	"""
 
 	primes = []
 
 	def __init__(self):
-		self.primeList = [2, 3]
-		self.primes = set(self.primeList)
+		self.primes = [2, 3]
 
 	def __call__(self, n):
 		"""Return True if n is prime; False otherwise."""
@@ -24,31 +31,29 @@ class IsPrime():
 		if int(n) != n:
 			return False
 
-		self.extend(n)
-		if n in self.primes:
-			return True
-		else:
-			return False
+		if not find_gt(self.primes, sqrt(n)):
+			self.extend(sqrt(n))
+
+		for prime in self.primes:
+			if prime == n:
+				return True
+			elif n % prime == 0:
+				return False
+			if prime > sqrt(n):
+				return True
 
 	def extend(self, n):
 		"""Extend the list of known primes to at least n."""
-		# TODO: This is broken for big numbers (cf. Problem010.py) - fix it.
 
-		# Depending on what the last currently-known prime is, we may get bonus
-		# primes AT NO EXTRA COST!!1!one
-		while self.primeList[-1] < n:
-			# index all integers up until and including the largest we
-			# can currently check definitively.
-			newprimes = range(0, self.primeList[-1] ** 2)
+		lastPrime = self.primes[-1]
+		i = lastPrime - (lastPrime % 6) - 6
 
-			# turn off all numbers that are multiples of known primes.
-			for prime in self.primeList:
-				newprimes[prime::prime] = [False for i in newprimes[prime::prime]]
-
-			# and, lastly, append the remaining (prime) numbers to self.primes
-			l = len(self.primeList)
-			self.primeList.extend([i for i in newprimes[self.primeList[-1]+1:] if i])
-			self.primes |= set(self.primeList)
+		while self.primes[-1] <= n:
+			i += 6
+			if self.__call__(i - 1):
+				self.primes.append(i - 1)
+			if self.__call__(i + 1):
+				self.primes.append(i + 1)
 
 # Convenience instance of IsPrime() suitable for importing like a function.
 is_prime = IsPrime()
